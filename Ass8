@@ -1,0 +1,60 @@
+###################################################################33
+
+import pandas as pd 
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+dataset = sns.load_dataset('titanic')
+dataset
+
+###################################################################33
+
+#countplot
+sns.catplot(x="sex",hue="survived",kind="count",data=dataset)
+
+
+###################################################################33
+
+#Heatmap
+#Group the dataset by pclass and Survived and then unstack them
+group=dataset.groupby(['pclass','survived'])
+pclass_survived=group.size().unstack()
+
+#Heatmap - color encoded 2D representation of data
+sns.heatmap(pclass_survived,annot=True,fmt='d')
+
+
+
+###################################################################33
+
+
+#Boxplot
+
+sns.boxplot(dataset['age'] )
+
+
+
+###################################################################33
+
+#Violinplot
+sns.violinplot(x='sex', y='age', data=dataset)
+
+
+
+###################################################################33
+
+
+#Histogram
+fig,ax=plt.subplots(figsize=(8,6))
+ax=plt.hist(dataset['fare'],color='b',edgecolor='r')
+plt.title('Histogram')
+plt.show
+
+
+###################################################################33
+
+
+
+
+
+
