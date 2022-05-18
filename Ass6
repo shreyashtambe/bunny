@@ -1,0 +1,121 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+from google.colab import files
+uploaded=files.upload()
+
+#################################################################################
+
+df=pd.read_csv('Iris.csv')
+df
+
+#################################################################################
+
+print(df.shape)
+
+#################################################################################
+
+print('The DataFrame contains %d rows and %d columns' %(df.shape))
+print (df.info())
+print(df.dtypes)
+print (df.head(7))
+
+#################################################################################
+
+features=df.iloc[:,0:4]
+print(features.head())
+
+#################################################################################
+
+target=df.iloc[:,5]
+print(target.head())
+
+#################################################################################
+
+print('The initial dataframe contained %d rows and %d columns '%(df.shape))
+print('The features matrix contains %d rows and %d columns '%(features.shape))
+print("The target vector contains %d rows and %d columns "%(np. array(target).reshape(-1,1).shape))
+
+
+#################################################################################
+
+from sklearn.naive_bayes import GaussianNB
+algorithm=GaussianNB(priors=None, var_smoothing=1e-9)
+algorithm.fit(features, target)
+
+
+#################################################################################
+
+print(algorithm.classes_)
+
+#################################################################################
+
+print("The Gaussain model has acheieved %.2f percent accuracy"%(algorithm.score(features, target)))
+
+#################################################################################
+
+observation=[[5.0,3.7,1.6,0.1]]
+predictions=algorithm.predict(observation)
+print(predictions)
+
+#################################################################################
+
+print(algorithm.predict_proba(observation).round())
+
+#################################################################################
+
+x= df.iloc[:,1:5]
+y = df.iloc[:,5:]
+
+
+#################################################################################
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y, test_size = 0.3,random_state=0)
+from sklearn.metrics import confusion_matrix, classification_report
+naive_bayes = GaussianNB()
+naive_bayes.fit(x_train,y_train)
+
+
+#################################################################################
+
+pred=naive_bayes.predict(x_test)
+
+
+#################################################################################
+
+
+from sklearn.preprocessing import LabelEncoder
+cm = confusion_matrix(y_test, pred, labels = naive_bayes.classes_)
+print(cm)
+
+
+#################################################################################
+
+print(classification_report(y_test, pred))
+
+
+#################################################################################
+
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report, accuracy_score
+print("\nAccuracy: {:.2f}".format(accuracy_score(y_test, pred)))
+err_rate=1-accuracy_score(y_test, pred)
+print('Error Rate: ',err_rate)
+
+
+#################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
