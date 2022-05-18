@@ -1,0 +1,136 @@
+########################################################################
+
+# TOKENIZATION
+
+import nltk
+nltk.download('popular')
+
+########################################################################
+
+paragraph="""A true friend loves you unconditionally, understands you, but never judges you and always tries to support you and give you good advice.
+The friendship of Krishna and Sudama is a great example of true friendship.
+A true friend is one who will always be there when you need someone.
+He will leave all his important work, but will never leave you alone, especially in your difficult times.
+That is why it is said a friend in need is a friend indeed.
+Difficult times are the best time to realize who your true friends are.
+Blessed are the souls who have true friends. """
+
+
+########################################################################
+
+sentences=nltk.sent_tokenize(paragraph)
+print(sentences,end=" ")
+
+
+########################################################################
+
+words=nltk.word_tokenize(paragraph)
+print(words)
+
+########################################################################
+
+# Part Of Speech Tagging
+
+from nltk.corpus import stopwords
+
+########################################################################
+
+stop_words = set(stopwords.words('english'))
+
+
+########################################################################
+
+
+for i in sentences:
+    wordsList = nltk.word_tokenize(i)
+    wordsList = [w for w in wordsList if not w in stop_words]
+    tagged = nltk.pos_tag(wordsList)
+    print(tagged)
+
+########################################################################
+
+# STOP WORD REMOVAL
+
+for i in range (len(sentences)):
+    words=nltk.word_tokenize(sentences[i])
+    words=[word for word in words if word not in set(stopwords.words('english'))]
+    sentences[i]=' '.join(words)
+print(sentences)
+
+########################################################################
+
+# STEMMING
+
+from nltk.stem import PorterStemmer
+stemmer=PorterStemmer()
+for i in range (len(sentences)):
+    words=nltk.word_tokenize(sentences[i])
+    words=[stemmer.stem(word) for word in words if word not in set(stopwords.words('english'))]
+    sentences[i]=' '.join(words)
+print(sentences)
+
+########################################################################
+
+# LEMITIZATION
+
+from nltk.stem import WordNetLemmatizer
+import re
+
+########################################################################
+
+sentences=nltk.sent_tokenize(paragraph)
+lemmatizer=WordNetLemmatizer()
+
+
+########################################################################
+
+for i in range (len(sentences)):
+    words=nltk.word_tokenize(sentences[i])
+    words=[lemmatizer.lemmatize(word) for word in words if word not in set(stopwords.words('english'))]
+    sentences[i]=' '.join(words)
+print(sentences)
+
+########################################################################
+
+# Term Frequency and Inverse Document Frequency
+
+ps=PorterStemmer()
+wordnet=WordNetLemmatizer()
+sentences=nltk.sent_tokenize(paragraph)
+corpus=[]
+for i in range (len(sentences)):
+    review=re.sub('[^a-zA-Z]',' ',sentences[i])
+    review=review.lower()
+    review=review.split()
+    review=[wordnet.lemmatize(word) for word in review if word not in set(stopwords.words('english'))]
+    review=' '.join(review)
+    corpus.append(review)
+
+########################################################################
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+cv=TfidfVectorizer()
+x=cv.fit_transform(corpus).toarray()
+
+
+########################################################################
+
+
+print(x)
+
+
+########################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
