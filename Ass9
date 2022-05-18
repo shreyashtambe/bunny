@@ -1,0 +1,40 @@
+############################################################
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+############################################################33
+
+df = sns.load_dataset('titanic')
+df
+
+############################################################
+
+df.info()
+
+############################################################
+
+sns.barplot(x='sex',y='age',data=df)
+
+############################################################
+
+sns.barplot(x='sex',y='survived',data=df)
+print("% of Male Survied :",df['survived'][df['sex']=='female'].value_counts(normalize=True)[0]*100)
+print("% of Female Survied :",df['survived'][df['sex']=='male'].value_counts(normalize=True)[0]*100)
+
+############################################################
+
+sns.boxplot(x='sex', y='age', data=df, hue='survived')
+
+############################################################
+
+sns.swarmplot(x='sex', y='age', data=df, hue='survived', split=True)
+
+############################################################
+
+# Observation
+# The genderwise mortality rate for male 74.2% and for female it is 18.9%.The age and gender wise distribution is almost similar in all types of age groups
+
+
