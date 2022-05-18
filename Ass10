@@ -1,0 +1,111 @@
+#######################################################
+
+from google.colab import files
+uploaded=files.upload()
+
+#######################################################
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import io
+df2 = pd.read_csv(io.BytesIO(uploaded['Iris.csv']))
+print(df2.shape)
+df2
+import seaborn as sns
+
+#######################################################
+
+
+dataset = pd.read_csv('Iris.csv')
+dataset
+
+#######################################################
+
+df2.head()
+
+#######################################################
+
+plt.figure(figsize = (10, 7))
+x = df2["SepalLengthCm"]  
+plt.hist(x, bins = 30, color = "Orange")
+plt.title("Sepal Length in cm")
+plt.xlabel("Sepal_Length_cm")
+plt.ylabel("Count")
+
+#######################################################
+
+plt.figure(figsize = (10, 7))
+x = df2["SepalWidthCm"] 
+plt.hist(x, bins = 20, color = "green")
+plt.title("sepal width (cm)")
+plt.xlabel("sepal width (cm)")
+plt.ylabel("Count")
+
+#######################################################
+
+plt.figure(figsize = (10, 7))
+x = df2["PetalLengthCm"]  
+plt.hist(x, bins = 10, color = "Green")
+plt.title("petal length in cm")
+plt.xlabel("petal_length_cm")
+plt.ylabel("Count")
+
+#######################################################
+
+plt.figure(figsize = (10, 7))
+x = df2["PetalWidthCm"]
+plt.hist(x, bins = 10, color = "red")
+plt.title("petal width in cm")
+plt.xlabel("petal_width_cm")
+plt.ylabel("Count")
+
+
+#######################################################
+plt.figure(figsize = (10, 7))
+df2.boxplot()
+
+#######################################################
+
+
+def graph(y):
+	sns.boxplot(x="Species", y=y, data=dataset)
+plt.figure(figsize=(10,10))
+plt.subplot(221)
+graph('SepalLengthCm')
+plt.show()
+
+#######################################################
+
+data_to_plot = [df2["PetalWidthCm"]]
+sns.set_style("dark")
+fig = plt.figure(1, figsize=(12,8))
+ax = fig.add_subplot(111)
+bp = ax.boxplot(data_to_plot);
+
+#######################################################
+
+data_to_plot = [df2["SepalWidthCm"]]
+sns.set_style("dark")
+fig = plt.figure(1, figsize=(12,8))
+ax = fig.add_subplot(111)
+bp = ax.boxplot(data_to_plot);
+
+#######################################################
+
+data_to_plot = [df2["SepalLengthCm"]]
+sns.set_style("dark")
+fig = plt.figure(1, figsize=(12,8))
+ax = fig.add_subplot(111)
+bp = ax.boxplot(data_to_plot);
+
+#######################################################
+
+
+
+
+
+
+
+
