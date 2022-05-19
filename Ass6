@@ -8,7 +8,7 @@ uploaded=files.upload()
 
 # OR for jupyterNB
 
-# df=pd.read_csv("xyz.csv")
+# df=pd.read_csv("Iris.csv")
 
 #################################################################################
 
